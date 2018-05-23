@@ -19,7 +19,8 @@
 <input type="button" value="青" onclick="document.js.colb.value='0000ff';create()">
 <input type="button" value="緑" onclick="document.js.colb.value='00ff00';create()">
 <input type="button" value="紫" onclick="document.js.colb.value='ff00ff';create()">
-<input type="button" value="水" onclick="document.js.colb.value='00ffff';create()"><br>
+<input type="button" value="水" onclick="document.js.colb.value='00ffff';create()">
+<input type="button" value="透過" onclick="document.js.colb.value='';create()"><br>
 </form>
 
 <canvas id="cv1" width="480" height="480"></canvas>
@@ -35,8 +36,11 @@ function create()
     var colf='#'+document.js.colf.value;
     var moji=document.js.moji.value;
 
-    ctx.fillStyle=colb;
-    ctx.fillRect(0,0,480,480);
+    ctx.clearRect(0,0,480,480);
+    if(colb!='#'){
+        ctx.fillStyle=colb;
+        ctx.fillRect(0,0,480,480);
+    }
 
     ctx.strokeStyle = colf;
     ctx.fillStyle=colf;
