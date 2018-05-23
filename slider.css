@@ -23,10 +23,10 @@ div.color_palette div.slider div {
 	background: -moz-linear-gradient(left 45deg, #ff0000, #ffbf00, #7fff00, #00ff3f, #00ffff, #003fff, #7f00ff, #ff00bf, #ff0000);
 	background: -webkit-gradient(linear, left top, right bottom, from(#ff0000), color-stop(0.125, #ffbf00), color-stop(0.25, #7fff00), color-stop(0.375, #00ff3f), color-stop(0.5, #00ffff), color-stop(0.625, #003fff), color-stop(0.75, #7f00ff), color-stop(0.875, #ff00bf), to(#ff0000));
 	
-	height:8px;
+	height:25px;
 	border:1px inset #aaa;
 	position:relative;
-	top:12px;
+	top:6px;
 	font-size:0px;
 	
 	
@@ -35,8 +35,9 @@ div.color_palette div.slider div {
 div.color_palette div.slider input[type="button"] {
 	position:absolute;
 	width:10px;
-	height:15px;
+	height:30px;
 	display:block;
+    top:4px;
 	
 	background:#f7f7f7;
 	border:solid 1px #888;
