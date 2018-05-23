@@ -1,32 +1,27 @@
-var color_result = document.getElementById('color_result');
+var fgbox = document.getElementById('fgbox');
+var bgbox = document.getElementById('bgbox');
 var color_palette = document.getElementById('color_palette');
 
 //デフォルト（HSB値）
 var h = 200; var s = 100; var v = 100;
 var hsb = new Array(Math.round(h * 300 / 360) , Math.round(s * 300 / 100), Math.round(v * 300 / 100));  //デフォルト
 
-var preview = document.getElementById('preview');
-
-//デフォルト
-
 var slider_h = document.getElementById('slider_h');
 var slider_s = document.getElementById('slider_s');
 var slider_b = document.getElementById('slider_b');
-
-color_result.onkeyup = function(e){ colorResultPressed(e, color_result, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, 1); };
 
 var value_h = document.getElementById('value_h');
 var value_s = document.getElementById('value_s');
 var value_b = document.getElementById('value_b');
 
 window.onload = function(){
-    slide(slider_h, hsb[0], 0, color_result, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, 1);
-    slide(slider_s, hsb[1], 1, color_result, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, 1);
-    slide(slider_b, hsb[2], 2, color_result, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, 1);
+    slide(slider_h, hsb[0], 0, fgbox, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, 1);
+    slide(slider_s, hsb[1], 1, fgbox, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, 1);
+    slide(slider_b, hsb[2], 2, fgbox, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, 1);
 }
 
 //スライダ管理
-function slide(slider,default_location, nowHSB, color_result, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, palette_type){
+function slide(slider,default_location, nowHSB, fgbox, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, palette_type){
     var input = slider.getElementsByTagName('input')[0];
     var root = document.documentElement;
     var dragging = false;
@@ -54,17 +49,17 @@ function slide(slider,default_location, nowHSB, color_result, hsb, slider_h, sli
 
         //文字色を設定
         if(v > 70 && (255 * 3 - result[0] - result[1] - result[2]) < 350){
-            color_result.style.color = "#000";
+            fgbox.style.color = "#000";
         } else {
-            color_result.style.color = "#fff";
+            fgbox.style.color = "#fff";
         }
 
         value_h.value = Math.round(h);
         value_s.value = Math.round(s);
         value_b.value = Math.round(v);
 
-        color_result.value = r + g + b;
-        color_result.style.backgroundColor = '#' + r + g + b;
+        fgbox.value = r + g + b;
+        fgbox.style.backgroundColor = '#' + r + g + b;
 
         doSomething(r+g+b);
 
@@ -142,97 +137,64 @@ function slide(slider,default_location, nowHSB, color_result, hsb, slider_h, sli
         document.onmousemove(evt);
         document.onmouseup();
     };
-
 }
 
-function changeSlider(obj){
-    console.log(obj);
-    var rgb_hex = obj.value;
-    rgb_hex = rgb_hex.replace("#","");
+function refresh(){
+    var rgbfg = fgbox.value;
+    var rgbbg = bgbox.value;
 
-    //文字数が足りなかったら
-    var rgb_hex_length = rgb_hex.length;
-    if(rgb_hex_length < 6){
-        var rgb_hex_tmp = rgb_hex;
-        rgb_hex = "";
-        obj.value = "";
-        for(var i=0; i < (6 - rgb_hex_length); i++){
-            rgb_hex += "0";
-            obj.value += "0";
+    //正しい表記の時のみ処理を行う
+    if(rgbfg.length==6 && rgbfg.match(/^[0-9|a-f]+$/) && rgbbg.length==6 && rgbbg.match(/^[0-9|a-f]+$/)){
+        console.log('refresh')
+        var r_string = rgbfg.substring(0, 2);
+        var g_string = rgbfg.substring(2, 4);
+        var b_string = rgbfg.substring(4, 6);
+
+        if(r_string.substring(0, 1) == "0") r_string = r_string.substring(1, 2);
+        if(g_string.substring(0, 1) == "0") g_string = g_string.substring(1, 2);
+        if(b_string.substring(0, 1) == "0") b_string = b_string.substring(1, 2);
+
+        var r = parseInt(r_string, 16);
+        var g = parseInt(g_string, 16);
+        var b = parseInt(b_string, 16);
+
+        var hsb_result = RGBtoHSB(r, g, b);
+
+        var h = hsb_result[0];
+        var s = hsb_result[1];
+        var v = hsb_result[2];
+
+        hsb[0] = h * slider_h.clientWidth / 360;
+        var input = slider_h.getElementsByTagName('input')[0];
+        input.style.left = (hsb[0] - input.clientWidth / 2) + 'px';
+
+        hsb[1] = s * slider_s.clientWidth / 100;
+        var input = slider_s.getElementsByTagName('input')[0];
+        input.style.left = (hsb[1] - input.clientWidth / 2) + 'px';
+
+        hsb[2] = v * slider_b.clientWidth / 100;
+        var input = slider_b.getElementsByTagName('input')[0];
+        input.style.left = (hsb[2] - input.clientWidth / 2) + 'px';
+
+        value_h.value = Math.round(hsb_result[0]);
+        value_s.value = Math.round(hsb_result[1]);
+        value_b.value = Math.round(hsb_result[2]);
+
+        fgbox.style.background = "#" + rgbfg;
+        bgbox.style.background = "#" + rgbbg;
+
+        showGradient(h,s,v, slider_h, slider_s, slider_b);
+
+        //文字色を設定
+        if(v > 70 && (255 * 3 - r - g - b) < 350){
+            fgbox.style.color = "#000";
+        } else {
+            fgbox.style.color = "#fff";
         }
-        rgb_hex += rgb_hex_tmp;
-        obj.value += rgb_hex_tmp;
+
+        doSomething(rgbfg);
     }
-
-    //文字数が多かったら
-    if(rgb_hex_length > 6){
-        rgb_hex = rgb_hex.substring(0, 6);
-        obj.value = rgb_hex.substring(0, 6);
-    }
-
-    //不正な文字が含まれていないか
-    if(!rgb_hex.match(/^[0-9|a-f]+$/)){
-        rgb_hex = "f7f7f7";
-        obj.value = "f7f7f7";
-    }
-
-    var r_string = rgb_hex.substring(0, 2);
-    var g_string = rgb_hex.substring(2, 4);
-    var b_string = rgb_hex.substring(4, 6);
-
-    if(r_string.substring(0, 1) == "0") r_string = r_string.substring(1, 2);
-    if(g_string.substring(0, 1) == "0") g_string = g_string.substring(1, 2);
-    if(b_string.substring(0, 1) == "0") b_string = b_string.substring(1, 2);
-
-    var r = parseInt(r_string, 16);
-    var g = parseInt(g_string, 16);
-    var b = parseInt(b_string, 16);
-
-    var hsb_result = RGBtoHSB(r, g, b);
-
-    var h = hsb_result[0];
-    var s = hsb_result[1];
-    var v = hsb_result[2];
-
-    hsb[0] = h * slider_h.clientWidth / 360;
-    var input = slider_h.getElementsByTagName('input')[0];
-    input.style.left = (hsb[0] - input.clientWidth / 2) + 'px';
-
-    hsb[1] = s * slider_s.clientWidth / 100;
-    var input = slider_s.getElementsByTagName('input')[0];
-    input.style.left = (hsb[1] - input.clientWidth / 2) + 'px';
-
-    hsb[2] = v * slider_b.clientWidth / 100;
-    var input = slider_b.getElementsByTagName('input')[0];
-    input.style.left = (hsb[2] - input.clientWidth / 2) + 'px';
-
-    value_h.value = Math.round(hsb_result[0]);
-    value_s.value = Math.round(hsb_result[1]);
-    value_b.value = Math.round(hsb_result[2]);
-
-    color_result.style.background = "#" + rgb_hex;
-
-    showGradient(h,s,v, slider_h, slider_s, slider_b);
-
-    //文字色を設定
-    if(v > 70 && (255 * 3 - r - g - b) < 350){
-        color_result.style.color = "#000";
-    } else {
-        color_result.style.color = "#fff";
-    }
-
-    doSomething(rgb_hex);
-
     return false;
-}
-
-//色結果表示ウィンドウにenter
-function colorResultPressed(e, color_result, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, palettetype){
-	var obj = color_result;
-	if(e.keyCode == 13){
-        changeSlider(obj, color_result, hsb, slider_h, slider_s, slider_b, value_h, value_s, value_b, palettetype);
-	}
-
 }
 
 //HSB→RGB
@@ -376,75 +338,6 @@ function showGradient(h, s, v, slider_h, slider_s, slider_b){
     slider_b.getElementsByTagName('div')[0].style.background = "-webkit-gradient(linear, left top, right bottom, from("+color16x[0]+"), to("+color16x[1]+"))";
 }
 
-//色バーを移動
-function moveTo(obj, hsbtype){
-	var hsb_value = obj.value;
-	switch(hsbtype){
-		case 0:
-			if(hsb_value > 360){
-				hsb_value = 360; value_h.value = "360";
-			}
-			hsb[0] = hsb_value * slider_h.clientWidth / 360;
-			var input = slider_h.getElementsByTagName('input')[0];
-			// つまみのサイズ(input.clientWidth)だけ位置を調整
-  			input.style.left = (hsb[0] - input.clientWidth / 2) + 'px';
-  
-  			var s = Math.round(hsb[1] * 100 / slider_s.clientWidth);
-  			var v = Math.round(hsb[2] * 100 / slider_b.clientWidth);
-
-  			var result = HSBtoRGB(hsb_value, s, v);
-			break;
-		case 1:
-			if(hsb_value > 100){
-				hsb_value = 100; value_s.value = "100";
-			}
-			hsb[1] = hsb_value * slider_s.clientWidth / 100;
-			var input = slider_s.getElementsByTagName('input')[0];
-			// つまみのサイズ(input.clientWidth)だけ位置を調整
-  			input.style.left = (hsb[1] - input.clientWidth / 2) + 'px';
-  
-  			var h = Math.round(hsb[0] * 360 / slider_h.clientWidth);
-  			var v = Math.round(hsb[2] * 100 / slider_b.clientWidth);
-
-  			var result = HSBtoRGB(h, hsb_value, v);
-			break;
-		case 2:
-			if(hsb_value > 100){
-				hsb_value = 100; value_b.value = "100";
-			}
-			hsb[2] = hsb_value * slider_b.clientWidth / 100;
-			var input = slider_b.getElementsByTagName('input')[0];
-			// つまみのサイズ(input.clientWidth)だけ位置を調整
-  			input.style.left = (hsb[2] - input.clientWidth / 2) + 'px';
-  			
-			var h = Math.round(hsb[0] * 360 / slider_h.clientWidth);
-  			var s = Math.round(hsb[1] * 100 / slider_s.clientWidth);
-  			
-
-  			var result = HSBtoRGB(h, s, hsb_value);
-			break;
-		}
-  		var r = result[0].toString(16);
-  		var g = result[1].toString(16);
-  		var b = result[2].toString(16);
-  
-  		if(r.length == 1) r = "0" + r;
- 		 if(g.length == 1) g = "0" + g;
-  		if(b.length == 1) b = "0" + b;
-  
-  		//文字色を設定
-  		if(v > 70 && (255 * 3 - result[0] - result[1] - result[2]) < 350){
-  			color_result.style.color = "#000";
-  		} else {
-  			color_result.style.color = "#fff";
-  		}
-		  
-        doSomething(r+g+b);
-  
-  	    showGradient(h,s,v, slider_h, slider_s, slider_b);
-	
-}
-
 //RGB→HSB
 function RGBtoHSB(r, g, b){
     var h = 0;
@@ -524,4 +417,39 @@ function RGBtoHSB(r, g, b){
 //ここに色を変更した後の処理を書く（rgbhexは"cf562d"など）
 function doSomething(rgbhex){
     create();
+}
+
+//アイコンの描画処理
+function create()
+{
+    var colb='#'+document.js.colb.value;
+    var colf='#'+document.js.colf.value;
+    var moji=document.js.moji.value;
+
+    ctx.clearRect(0,0,480,480);
+    if(colb!='#'){
+        ctx.fillStyle=colb;
+        ctx.fillRect(0,0,480,480);
+    }
+
+    ctx.strokeStyle = colf;
+    ctx.fillStyle=colf;
+
+    ctx.lineWidth=15;
+    ctx.beginPath();
+    ctx.arc(240,240,220,0,Math.PI*2,false);
+    ctx.stroke();
+
+    ctx.font='200px  "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic ProN","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO"';
+    sizes=ctx.measureText(moji)
+
+    var tops=310;
+    if(sizes.width<400){
+        ctx.fillText(moji,240-sizes.width/2,tops,400);
+    }else{
+        ctx.fillText(moji,40,tops,400);
+    }
+
+    var png = cvs.toDataURL();
+    document.getElementById("newImg").src = png;
 }
