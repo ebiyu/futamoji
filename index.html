@@ -32,7 +32,7 @@ function create()
     ctx.font='200px  "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic ProN","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO"';
     sizes=ctx.measureText(moji)
 
-    ctx.fillText(moji,240-sizes.width/2-10,320);
+    ctx.fillText(moji,240-sizes.width/2,320);
 
     var png = cvs.toDataURL();
     document.getElementById("newImg").src = png;
