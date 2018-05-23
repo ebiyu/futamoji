@@ -1,7 +1,7 @@
 <h1>2文字アイコンメーカー</h1>
 
 <form name="js">
-文字：<input type="text" name="txtb" value=""><br>
+文字：<input type="text" name="moji" value="ほげ"><br>
 色(RGB指定):# <input type="text" name="colb" value="00aaff"><br>
 <input type="button" value="作成" onclick="create()">
 <input type="button" value="画像に変換" onclick="chgImg()">
@@ -11,20 +11,26 @@
 <script>
 var cvs = document.getElementById("cv1");
 var ctx = cvs.getContext("2d");
+cv1.style.display='none';
 
 //canvasにランダムなカラーラインを描く関数
 function create()
 {
-    cv1.style.display='none'
     var col='#'+document.js.colb.value;
+    var moji=document.js.moji.value;
 
     ctx.strokeStyle = col;
+    ctx.fillStyle=col;
+
     ctx.lineWidth=15;
     ctx.beginPath();
     ctx.arc(240,240,220,0,Math.PI*2,false);
     ctx.stroke();
 
-    ctx.filltext()
+    ctx.font='200px "游ゴシック Medium", "游ゴシック体", "Yu Gothic Medium", YuGothic, "ヒラギノ丸ゴ ProN", "Hiragino Mari Gothic ProN"';
+    sizes=ctx.measureText(moji)
+
+    ctx.fillText(moji,240-sizes.width/2-10,320);
 
     var png = cvs.toDataURL();
     document.getElementById("newImg").src = png;
