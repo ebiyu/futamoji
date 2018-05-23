@@ -1,0 +1,35 @@
+<h1>2文字アイコンメーカー</h1>
+
+<form name="js">
+文字：<input type="text" name="txtb" value=""><br>
+色(RGB指定):# <input type="text" name="colb" value="00aaff"><br>
+<input type="button" value="作成" onclick="create()">
+<input type="button" value="画像に変換" onclick="chgImg()">
+</form>
+
+<canvas id="cv1" width="480" height="480"></canvas>
+<script>
+var cvs = document.getElementById("cv1");
+var ctx = cvs.getContext("2d");
+
+//canvasにランダムなカラーラインを描く関数
+function create()
+{
+    cv1.style.display='none'
+    var col='#'+document.js.colb.value;
+
+    ctx.strokeStyle = col;
+    ctx.lineWidth=15;
+    ctx.beginPath();
+    ctx.arc(240,240,220,0,Math.PI*2,false);
+    ctx.stroke();
+
+    ctx.filltext()
+
+    var png = cvs.toDataURL();
+    document.getElementById("newImg").src = png;
+}
+
+</script>
+
+<div><img id="newImg"></div>
