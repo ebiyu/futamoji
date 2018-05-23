@@ -1,20 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="slider.css" type="text/css" />
+</head>
 <body onload="create()">
 <h1>2文字アイコンメーカー</h1>
 (3文字以上にも対応しました)
 
 <form name="js">
 文字：<input type="text" name="moji" value="えこ" onInput="create()"><br>
-色(RGB指定):# <input type="text" name="colf" value="00a0ea" onInput="create()">
-<input type="button" value="黒" onclick="document.js.colf.value='000000';create()">
-<input type="button" value="白" onclick="document.js.colf.value='ffffff';create()">
-<input type="button" value="赤" onclick="document.js.colf.value='ff0000';create()">
-<input type="button" value="黄" onclick="document.js.colf.value='ffff00';create()">
-<input type="button" value="青" onclick="document.js.colf.value='0000ff';create()">
-<input type="button" value="緑" onclick="document.js.colf.value='00ff00';create()">
-<input type="button" value="紫" onclick="document.js.colf.value='ff00ff';create()">
-<input type="button" value="水" onclick="document.js.colf.value='00ffff';create()"><br>
+色(RGB指定):# <input type="text" name="colf" id="color_result" class="color_result" onInput="create()">
+<div class="color_palette" id="color_palette">
+	<div id="slider_h" class="slider">
+		<div></div>
+		<input type="button">
+	</div><input type="text" id="value_h" onkeyup="moveTo(this,0)">
+	<div id="slider_s" class="slider">
+		<div></div>
+		<input type="button">
+	</div><input type="text" id="value_s" onkeyup="moveTo(this,1)">
+	<div id="slider_b" class="slider">
+		<div></div>
+		<input type="button">
+		</div><input type="text" id="value_b" onkeyup="moveTo(this,2)">
+	</div>
+</div>
 
-背景色(RGB指定):# <input type="text" name="colb" value="ffffff" onInput="create()">
+<input type="button" value="黒" onclick="document.js.colf.value='000000';create();changeSlider(color_result);">
+<input type="button" value="白" onclick="document.js.colf.value='ffffff';create();changeSlider(color_result);">
+<input type="button" value="赤" onclick="document.js.colf.value='ff0000';create();changeSlider(color_result);">
+<input type="button" value="黄" onclick="document.js.colf.value='ffff00';create();changeSlider(color_result);">
+<input type="button" value="青" onclick="document.js.colf.value='0000ff';create();changeSlider(color_result);">
+<input type="button" value="緑" onclick="document.js.colf.value='00ff00';create();changeSlider(color_result);">
+<input type="button" value="紫" onclick="document.js.colf.value='ff00ff';create();changeSlider(color_result);">
+<input type="button" value="水" onclick="document.js.colf.value='00ffff';create();changeSlider(color_result);"><br>
+
+背景色(RGB指定):# <input type="text" name="colb" value="ffffff" onInput="create()"><br>
 <input type="button" value="黒" onclick="document.js.colb.value='000000';create()">
 <input type="button" value="白" onclick="document.js.colb.value='ffffff';create()">
 <input type="button" value="赤" onclick="document.js.colb.value='ff0000';create()">
@@ -68,6 +90,9 @@ function create()
 }
 
 </script>
+<script src="slider.js">
+</script>
 
 <div><img id="newImg"></div>
 </body>
+</html>

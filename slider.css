@@ -1,0 +1,57 @@
+div.color_palette {
+	position:relative;;
+	width:345px;
+	height:100px;
+	border:solid 1px #666;
+	background:#f7f7f7;
+	
+	margin-top:10px;
+	
+	padding:0 10px;
+
+}
+
+div.color_palette div.slider {
+	position:relative;
+	width:300px;
+	height:20px;
+	
+	margin:5px 0;
+}
+
+div.color_palette div.slider div {
+	background: -moz-linear-gradient(left 45deg, #ff0000, #ffbf00, #7fff00, #00ff3f, #00ffff, #003fff, #7f00ff, #ff00bf, #ff0000);
+	background: -webkit-gradient(linear, left top, right bottom, from(#ff0000), color-stop(0.125, #ffbf00), color-stop(0.25, #7fff00), color-stop(0.375, #00ff3f), color-stop(0.5, #00ffff), color-stop(0.625, #003fff), color-stop(0.75, #7f00ff), color-stop(0.875, #ff00bf), to(#ff0000));
+	
+	height:8px;
+	border:1px inset #aaa;
+	position:relative;
+	top:12px;
+	font-size:0px;
+	
+	
+}
+
+div.color_palette div.slider input[type="button"] {
+	position:absolute;
+	width:10px;
+	height:15px;
+	display:block;
+	
+	background:#f7f7f7;
+	border:solid 1px #888;
+}
+
+div.color_palette input[type="text"] {
+	position:absolute;
+	width:25px;
+	height:20px;
+	display:block;
+	
+	margin-left:310px;
+	margin-top:-20px;
+	
+	background:#f7f7f7;
+	border:solid 1px #888;
+}
+
