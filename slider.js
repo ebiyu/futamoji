@@ -437,7 +437,7 @@ function create()
 
     ctx.lineWidth=15;
     ctx.beginPath();
-    ctx.arc(240,240,220,0,Math.PI*2,false);
+    ctx.arc(240,240,230,0,Math.PI*2,false);
     ctx.stroke();
 
     ctx.font='200px  "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic ProN","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO"';
