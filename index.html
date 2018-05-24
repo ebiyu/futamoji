@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>2文字アイコンメーカー</title>
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="slider.css" type="text/css" />
-</head>
-<body onload="create()">
-<h1>2文字アイコンメーカー</h1>
-(3文字以上にも対応しました)
+    <head>
+        <meta charset="UTF-8">
+        <title>2文字アイコンメーカー</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="slider.css" type="text/css" />
+    </head>
+    <body onload="create()">
+        <h1>2文字アイコンメーカー</h1>
+        (3文字以上にも対応しました)
 
-<form name="js">
-文字：<input type="text" name="moji" value="えこ" onInput="create()"><br>
-色(RGB指定):# <input type="text" name="colf" id="fgbox" onInput="refresh()"><br>
-<input type="button" style="background-color:#000000" onclick="document.js.colf.value='000000';refresh()">
-<input type="button" style="background-color:#ffffff" onclick="document.js.colf.value='ffffff';refresh()">
-<input type="button" style="background-color:#ff0000" onclick="document.js.colf.value='ff0000';refresh()">
-<input type="button" style="background-color:#ffff00" onclick="document.js.colf.value='ffff00';refresh()">
-<input type="button" style="background-color:#0000ff" onclick="document.js.colf.value='0000ff';refresh()">
-<input type="button" style="background-color:#00ff00" onclick="document.js.colf.value='00ff00';refresh()">
-<input type="button" style="background-color:#ff00ff" onclick="document.js.colf.value='ff00ff';refresh()">
-<input type="button" style="background-color:#00ffff" onclick="document.js.colf.value='00ffff';refresh()"><br>
-<div class="color_palette" id="color_palette">
-	<div id="slider_h" class="slider">
-        <div></div>
-		<input type="button">
-	</div><input type="text" id="value_h" onkeyup="moveTo(this,0)">
-	<div id="slider_s" class="slider">
-		<div></div>
-		<input type="button">
-	</div><input type="text" id="value_s" onkeyup="moveTo(this,1)">
-	<div id="slider_b" class="slider">
-		<div></div>
-		<input type="button">
-		</div><input type="text" id="value_b" onkeyup="moveTo(this,2)">
-	</div>
-</div>
+        <form name="js">
+            文字：<input type="text" name="moji" value="えこ" onInput="create()"><br>
+            色(RGB指定):# <input type="text" name="colf" id="fgbox" onInput="refresh()"><br>
+            <input type="button" style="background-color:#000000" onclick="document.js.colf.value='000000';refresh()">
+            <input type="button" style="background-color:#ffffff" onclick="document.js.colf.value='ffffff';refresh()">
+            <input type="button" style="background-color:#ff0000" onclick="document.js.colf.value='ff0000';refresh()">
+            <input type="button" style="background-color:#ffff00" onclick="document.js.colf.value='ffff00';refresh()">
+            <input type="button" style="background-color:#0000ff" onclick="document.js.colf.value='0000ff';refresh()">
+            <input type="button" style="background-color:#00ff00" onclick="document.js.colf.value='00ff00';refresh()">
+            <input type="button" style="background-color:#ff00ff" onclick="document.js.colf.value='ff00ff';refresh()">
+            <input type="button" style="background-color:#00ffff" onclick="document.js.colf.value='00ffff';refresh()"><br>
+            <div class="color_palette" id="color_palette">
+                <div id="slider_h" class="slider">
+                    <div></div>
+                    <input type="button">
+                </div><input type="text" id="value_h" onkeyup="moveTo(this,0)">
+                <div id="slider_s" class="slider">
+                    <div></div>
+                    <input type="button">
+                </div><input type="text" id="value_s" onkeyup="moveTo(this,1)">
+                <div id="slider_b" class="slider">
+                    <div></div>
+                    <input type="button">
+                    </div><input type="text" id="value_b" onkeyup="moveTo(this,2)">
+                </div>
+            </div>
 
 
-背景色(RGB指定):# <input type="text" name="colb" value="ffffff" id="bgbox" onInput="refresh()">
-<input type="button" value="透過" onclick="document.js.colb.value='';create()"><br>
-<input type="button" style="background-color:#000000" onclick="document.js.colb.value='000000';refresh()">
-<input type="button" style="background-color:#ffffff" onclick="document.js.colb.value='ffffff';refresh()">
-<input type="button" style="background-color:#ff0000" onclick="document.js.colb.value='ff0000';refresh()">
-<input type="button" style="background-color:#ffff00" onclick="document.js.colb.value='ffff00';refresh()">
-<input type="button" style="background-color:#0000ff" onclick="document.js.colb.value='0000ff';refresh()">
-<input type="button" style="background-color:#00ff00" onclick="document.js.colb.value='00ff00';refresh()">
-<input type="button" style="background-color:#ff00ff" onclick="document.js.colb.value='ff00ff';refresh()">
-<input type="button" style="background-color:#00ffff" onclick="document.js.colb.value='00ffff';refresh()"><br>
-</form>
+            背景色(RGB指定):# <input type="text" name="colb" value="ffffff" id="bgbox" onInput="refresh()">
+            <input type="button" value="透過" onclick="document.js.colb.value='';create()"><br>
+            <input type="button" style="background-color:#000000" onclick="document.js.colb.value='000000';refresh()">
+            <input type="button" style="background-color:#ffffff" onclick="document.js.colb.value='ffffff';refresh()">
+            <input type="button" style="background-color:#ff0000" onclick="document.js.colb.value='ff0000';refresh()">
+            <input type="button" style="background-color:#ffff00" onclick="document.js.colb.value='ffff00';refresh()">
+            <input type="button" style="background-color:#0000ff" onclick="document.js.colb.value='0000ff';refresh()">
+            <input type="button" style="background-color:#00ff00" onclick="document.js.colb.value='00ff00';refresh()">
+            <input type="button" style="background-color:#ff00ff" onclick="document.js.colb.value='ff00ff';refresh()">
+            <input type="button" style="background-color:#00ffff" onclick="document.js.colb.value='00ffff';refresh()"><br>
+        </form>
 
-<canvas id="cv1" width="480" height="480"></canvas>
-<script>
-var cvs = document.getElementById("cv1");
-var ctx = cvs.getContext("2d");
-cv1.style.display='none';
-</script>
-<script src="slider.js"></script>
+        <canvas id="cv1" width="480" height="480"></canvas>
+        <script>
+            var cvs = document.getElementById("cv1");
+            var ctx = cvs.getContext("2d");
+            cv1.style.display='none';
+        </script>
+        <script src="slider.js"></script>
 
-<div><img width="370" height="370" id="newImg"></div>
-<a href="https://github.com/ebiyuu1121/futamoji">ソースコード</a>
-</body>
+        <div><img width="370" height="370" id="newImg"></div>
+        <a href="https://github.com/ebiyuu1121/futamoji">ソースコード</a>
+    </body>
 </html>
