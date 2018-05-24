@@ -1,7 +1,7 @@
 div.color_palette {
 	position:relative;
 	width:345px;
-	height:100px;
+	height:150px;
 	border:solid 1px #666;
 	background:#f7f7f7;
 	
@@ -16,7 +16,7 @@ div.color_palette div.slider {
 	width:300px;
 	height:20px;
 	
-	margin:5px 0;
+	margin:20px 0;
 }
 
 div.color_palette div.slider div {
@@ -50,7 +50,7 @@ div.color_palette input[type="text"] {
 	display:block;
 	
 	margin-left:310px;
-	margin-top:-20px;
+	margin-top:-34px;
 	
 	background:#f7f7f7;
 	border:solid 1px #888;
