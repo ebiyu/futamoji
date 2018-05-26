@@ -145,7 +145,6 @@ function refresh(){
 
     //正しい表記の時のみ処理を行う
     if(rgbfg.length==6 && rgbfg.match(/^[0-9|a-f]+$/) && rgbbg.length==6 && rgbbg.match(/^[0-9|a-f]+$/)){
-        console.log('refresh')
         var r_string = rgbfg.substring(0, 2);
         var g_string = rgbfg.substring(2, 4);
         var b_string = rgbfg.substring(4, 6);

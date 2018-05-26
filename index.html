@@ -5,6 +5,7 @@
         <title>2文字アイコンメーカー</title>
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="slider.css" type="text/css" />
+        <script src="bower_components/oauth-js/dist/oauth.js"></script>
     </head>
     <body onload="create()">
         <h1>2文字アイコンメーカー</h1>
@@ -57,6 +58,19 @@
             cv1.style.display='none';
         </script>
         <script src="slider.js"></script>
+
+        <input type='button' value='twitterのアイコンに登録' onclick='auth()'>
+        <script>
+            function auth(){
+                OAuth.initialize("PUqmg5cIaFyGLaK44SEbaYIXJXs");
+                OAuth.popup("twitter", function(err, res) {
+                    res.get('/1.1/account/verify_credentials.json').done(function(result) {
+                        console.log(result.screen_name);
+                    });
+                });
+            }
+        </script>
+
 
         <div><img width="370" height="370" id="newImg"></div>
         <a href="https://github.com/ebiyuu1121/futamoji">ソースコード</a>
